@@ -1,3 +1,5 @@
+package com.practice
+
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -20,16 +22,16 @@ object PlayAverage  {
 
     override
     def map(key:Object, value:Text, context:Mapper[Object,Text,Text,LongWritable]#Context): Unit = {
-          val startTime = Calendar.getInstance()
-          val endTime = Calendar.getInstance()
-          val dataFormat = new SimpleDateFormat("yyyy/mm/dd HH:mm:ss")
-          val dataSet = value.toString.split(",")
-          startTime.setTime(dataFormat.parse(dataSet(4)))
-          endTime.setTime(dataFormat.parse(dataSet(5)))
-          val playTime: Long = (endTime.getTimeInMillis - startTime.getTimeInMillis) / 1000
-          val values = new LongWritable(playTime)
-          context.write(word,values)
-        }
+      val startTime = Calendar.getInstance()
+      val endTime = Calendar.getInstance()
+      val dataFormat = new SimpleDateFormat("yyyy/mm/dd HH:mm:ss")
+      val dataSet = value.toString.split(",")
+      startTime.setTime(dataFormat.parse(dataSet(4)))
+      endTime.setTime(dataFormat.parse(dataSet(5)))
+      val playTime: Long = (endTime.getTimeInMillis - startTime.getTimeInMillis) / 1000
+      val values = new LongWritable(playTime)
+      context.write(word,values)
+    }
   }
   class PlayTimeReducer extends Reducer[Text,LongWritable,Text,LongWritable] {
     override
