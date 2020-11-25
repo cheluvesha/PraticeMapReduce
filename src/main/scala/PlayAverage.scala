@@ -3,7 +3,7 @@ import java.util.Calendar
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
-import org.apache.hadoop.io.{IntWritable, LongWritable, Text}
+import org.apache.hadoop.io.{LongWritable, Text}
 import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.mapreduce.Mapper
 import org.apache.hadoop.mapreduce.Reducer
@@ -56,6 +56,6 @@ object PlayAverage  {
     job.setOutputValueClass(classOf[LongWritable])
     FileInputFormat.addInputPath(job, new Path("input"))
     FileOutputFormat.setOutputPath(job, new Path("output"))
-    if (job.waitForCompletion(true)) 0 else 1
+    job.waitForCompletion(true)
   }
 }
